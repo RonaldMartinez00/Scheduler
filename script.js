@@ -1,11 +1,11 @@
 var date = document.getElementById('currentDay').textContent = moment().format("MMM Do YY");
-var currentHour = document.getElementById('currentHour').textContent = moment().format('LT');
+var currentHour = moment().format('H'); // use 24-hour time format for current hour
 var timeBlocks = document.querySelectorAll(".time-block");
 timeBlocks.forEach(function(timeBlock) {
   var hour = parseInt(timeBlock.querySelector(".hour").textContent);
   if (hour < currentHour) {
     timeBlock.classList.add("past");
-  } else if (hour === currentHour) {
+  } else if (hour == currentHour) { // use double equals to compare numbers as strings
     timeBlock.classList.add("present");
   } else {
     timeBlock.classList.add("future");
@@ -21,13 +21,12 @@ saveButtons.forEach(function(saveButton) {
     localStorage.setItem(key, value);
   });
 });
+
 for (var i = 9; i <= 17; i++) {
-    var key = "data-" + i;
-    var value = localStorage.getItem(key);
-    var textarea = document.getElementById(key);
-    if (textarea) {
-      textarea.value = value;
-    }
+  var key = "data-" + i;
+  var value = localStorage.getItem(key);
+  var textarea = document.getElementById(key);
+  if (textarea) {
+    textarea.value = value;
   }
-
-
+}
